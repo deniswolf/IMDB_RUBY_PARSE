@@ -21,7 +21,9 @@ end
 
 desc "Unpack downloaded archives"
 task :parse do
-  File.readlines(File.join(local_dir_name, 'aka-titles.list')).each do |line|
+  File.readlines(File.join(local_dir_name, 'aka-titles.list')).each_with_index do |line, index|
+    # ignore file headers
+    next if index < 16
     if IMDB_RUBY_PARSE::PARSE.is_parsable?(line)
       puts IMDB_RUBY_PARSE::PARSE.to_h(line)
     end

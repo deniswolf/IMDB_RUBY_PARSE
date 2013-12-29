@@ -13,7 +13,7 @@ module IMDB_RUBY_PARSE
     private
 
     def self.is_parsable?(string)
-      /^"/ =~ string || /^[a-z-Z]]/ =~ string
+      /^[^\s]/ =~ string
     end
 
     #TODO: fix expression to avoid [1]
@@ -23,7 +23,16 @@ module IMDB_RUBY_PARSE
     end
 
     def self.title(string)
-      /^"[^"]+"/.match(string).to_s
+      first_char = string[0]
+      case first_char
+        when '"'
+          /^"[^"]+"/.match(string).to_s
+        when /[^\s]/
+          /^[^\s][^(]+/.match(string).to_s
+        else
+          puts 'xxx:'+string
+          nil
+      end
     end
 
   end
