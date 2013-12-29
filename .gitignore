@@ -1,0 +1,6 @@
+# files from IMDB
+files/*
+
+# IDE and system files
+.idea
+.DS_store
