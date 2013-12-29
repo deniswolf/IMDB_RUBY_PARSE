@@ -1,4 +1,5 @@
 require 'rake'
+require 'json'
 require './lib/download'
 require './lib/unpack'
 require './lib/parse'
@@ -28,7 +29,7 @@ namespace :parse do
       # ignore file headers
       next if index < 16
       if IMDB_RUBY_PARSE::PARSE.is_parsable?(line)
-        puts IMDB_RUBY_PARSE::PARSE.to_h(line)
+        puts IMDB_RUBY_PARSE::PARSE.to_h(line).to_json
       end
     end
   end
