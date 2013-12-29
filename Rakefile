@@ -1,6 +1,7 @@
 require 'rake'
 require './lib/download'
 require './lib/unpack'
+require './lib/parse'
 
 # list of files to process
 #imdb_files = ['movies.list', 'movie-links.list']
@@ -18,3 +19,11 @@ task :unpack do
   IMDB_RUBY_PARSE::UNPACK.unpack!(imdb_files, local_dir_name)
 end
 
+desc "Unpack downloaded archives"
+task :parse do
+  File.readlines(File.join(local_dir_name, 'aka-titles.list')).each do |line|
+    if IMDB_RUBY_PARSE::PARSE.is_parsable?(line)
+      puts IMDB_RUBY_PARSE::PARSE.to_h(line)
+    end
+  end
+end
