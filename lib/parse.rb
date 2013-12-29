@@ -30,7 +30,6 @@ module IMDB_RUBY_PARSE
         when /[^\s]/
           /^[^\s][^(]+/.match(string).to_s
         else
-          puts 'xxx:'+string
           nil
       end
     end
