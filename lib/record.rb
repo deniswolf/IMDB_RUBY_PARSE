@@ -13,7 +13,7 @@ module IMDB_RUBY_PARSE
     end
 
     def is_parsable?
-      /^[^\s\-]/ =~ @string
+      /^[^\s\-\=]/ =~ @string
     end
 
     private

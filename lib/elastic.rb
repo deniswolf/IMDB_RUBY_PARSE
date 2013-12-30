@@ -6,12 +6,12 @@ module IMDB_RUBY_PARSE
   module ELASTIC
     ELASTIC_CLIENT = Elasticsearch::Client.new log: true
     INDEX = 'imdb'
+    IMDB_FILES_HEADER_LINES = 14
 
     def self.bulk_load(type, from_file)
       temp_file = Tempfile.new("#{type}.json")
       File.readlines(from_file).each_with_index do |line, index|
-        # ignore file headers
-        next if index < 16
+        next if index < IMDB_FILES_HEADER_LINES
         payload = Record.new(line)
         if payload.is_parsable?
           temp_file.write("{ index:  { _index: \"#{INDEX}\", _type: \"#{type}\"}\n#{payload.to_h.to_json}\n")
