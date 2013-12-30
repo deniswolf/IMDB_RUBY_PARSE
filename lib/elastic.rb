@@ -33,23 +33,5 @@ module IMDB_RUBY_PARSE
       temp_file.unlink
 
     end
-
-    #def self.search(type: nil, title: nil)
-    #  ELASTIC_CLIENT.search index: 'imdb',
-    #                        type: type,
-    #                        body: { query: {
-    #                            match: { title: title }
-    #                        } }
-    #  end
-    #
-    #def self.suggest(type: nil, title: nil)
-    #  title = 'Nya'
-    #  type = 'title'
-    #  ELASTIC_CLIENT.search index: 'imdb',
-    #                        type: type,
-    #                        suggest_field: 'title',
-    #                        suggest_text: title
-    #
-    #end
   end
 end

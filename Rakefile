@@ -2,12 +2,11 @@ require 'rake'
 require 'json'
 require './lib/download'
 require './lib/unpack'
-require './lib/parse'
-require './lib/Elastic'
+require './lib/elastic'
 
 # list of files to process
-#imdb_files = ['movies.list', 'movie-links.list']
-imdb_files = ['aka-titles.list']
+imdb_files = ['movies.list', 'movie-links.list', 'aka-titles.list']
+
 # default folder to store downloaded files
 local_dir_name = File.path('./files/')
 
@@ -20,19 +19,6 @@ namespace :import do
   desc "Unpack downloaded archives"
   task :unpack do
     IMDB_RUBY_PARSE::UNPACK.unpack!(imdb_files, local_dir_name)
-  end
-end
-
-namespace :parse do
-  desc "Extract list of titles as {title:'', year:''}"
-  task :titles do
-    File.readlines(File.join(local_dir_name, 'aka-titles.list')).each_with_index do |line, index|
-      # ignore file headers
-      next if index < 16
-      if IMDB_RUBY_PARSE::PARSE.is_parsable?(line)
-        puts IMDB_RUBY_PARSE::PARSE.to_h(line).to_json
-      end
-    end
   end
 end
 
