@@ -41,16 +41,7 @@ namespace :export do
   namespace :elastic do
     desc "Export Titles to Elasticsearch"
     task :titles do
-      File.readlines(File.join(local_dir_name, 'aka-titles.list')).each_with_index do |line, index|
-        # ignore file headers
-        next if index < 16
-        #break if index > 1000
-        if IMDB_RUBY_PARSE::PARSE.is_parsable?(line)
-          record =  IMDB_RUBY_PARSE::PARSE.to_h(line)
-          #puts "are going to add #{record}"
-          IMDB_RUBY_PARSE::ELASTIC.add('title', record)
-        end
-      end
+      IMDB_RUBY_PARSE::ELASTIC.bulk_load('title',File.join(local_dir_name, 'aka-titles.list'))
     end
   end
 
