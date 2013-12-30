@@ -2,7 +2,6 @@ require 'fileutils'
 require 'zlib'
 
 module IMDB_RUBY_PARSE
-  module UNPACK
     def self.unpack!(filenames, local_dir_name)
       filenames.each do |file|
         archive_name = file+'.gz'
@@ -27,6 +26,4 @@ module IMDB_RUBY_PARSE
       system("iconv -f iso-8859-1 -t utf-8 #{path} > ./tmp/inconv_temp")
       system("mv ./tmp/inconv_temp #{path}")
     end
-
-  end
 end

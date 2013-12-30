@@ -2,7 +2,6 @@ require 'net/ftp'
 require 'fileutils'
 
 module IMDB_RUBY_PARSE
-  module DOWNLOAD
     def self.get_files!(filenames, local_dir_name)
       # create ./files if it doesn't exist
       FileUtils.mkdir_p(local_dir_name)
@@ -23,5 +22,4 @@ module IMDB_RUBY_PARSE
       end
       ftp.close
     end
-  end
 end

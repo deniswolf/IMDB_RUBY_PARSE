@@ -7,13 +7,6 @@ module IMDB_RUBY_PARSE
     ELASTIC_CLIENT = Elasticsearch::Client.new log: true
     INDEX = 'imdb'
 
-    def self.add(type,body)
-      ELASTIC_CLIENT.index index: INDEX,
-                    type:  type,
-                    body: body
-
-    end
-
     def self.bulk_load(type, from_file)
       temp_file = Tempfile.new("#{type}.json")
       File.readlines(from_file).each_with_index do |line, index|
