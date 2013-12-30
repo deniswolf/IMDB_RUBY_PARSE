@@ -27,6 +27,11 @@ namespace :export do
     task :titles do
       IMDB_RUBY_PARSE::ELASTIC.bulk_load('title',File.join(local_dir_name, 'aka-titles.list'))
     end
+
+    desc "Export Movie Links to Elasticsearch"
+    task :movie_links do
+      IMDB_RUBY_PARSE::ELASTIC.bulk_load('movie_link',File.join(local_dir_name, 'movie-links.list'))
+    end
   end
 
 end
