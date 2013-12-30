@@ -1,6 +1,6 @@
 require 'elasticsearch'
 require 'tempfile'
-require './lib/parse'
+require './lib/record'
 
 module IMDB_RUBY_PARSE
   module ELASTIC
@@ -19,9 +19,9 @@ module IMDB_RUBY_PARSE
       File.readlines(from_file).each_with_index do |line, index|
         # ignore file headers
         next if index < 16
-        if IMDB_RUBY_PARSE::PARSE.is_parsable?(line)
-          payload = IMDB_RUBY_PARSE::PARSE.to_h(line).to_json
-          temp_file.write("{ index:  { _index: \"#{INDEX}\", _type: \"#{type}\"}\n#{payload}\n")
+        payload = Record.new(line)
+        if payload.is_parsable?
+          temp_file.write("{ index:  { _index: \"#{INDEX}\", _type: \"#{type}\"}\n#{payload.to_h.to_json}\n")
         end
 
       end
